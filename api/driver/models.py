@@ -1,6 +1,4 @@
-from django.db import models, DataError, IntegrityError
-from django.core.validators import RegexValidator
-import datetime
+from django.db import models
 
 
 class Driver(models.Model):
