@@ -35,8 +35,10 @@ class SetDriverView(viewsets.ModelViewSet):
                         status=status.HTTP_400_BAD_REQUEST)
 
 
+class VehicleWithDriverView(viewsets.ModelViewSet):
+    serializer_class = VehicleDetailSerializer
+    queryset = Vehicle.objects.exclude(driver_id__isnull=True)
 
-
-
-
-
+    # def null_list(self, request, flag='yes'):
+    #     serializer_class = VehicleDetailSerializer
+    #     queryset = Vehicle.objects.exclude(driver_id__isnull=True)
