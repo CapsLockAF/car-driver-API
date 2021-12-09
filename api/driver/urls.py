@@ -4,7 +4,9 @@ from .views import *
 app_name = "driver"
 
 urlpatterns = [
-    path('driver/d1/', DriverCreateView.as_view()),
-    path('driver/d2/', DriverListView.as_view()),
+    path('driver/', DriverCreateView.as_view({
+        'get': 'list',
+        'post': 'create'
+    })),
     path('driver/<int:pk>', DriverDetailView.as_view()),
 ]

@@ -1,13 +1,9 @@
-from rest_framework import generics, views, viewsets
+from rest_framework import generics, viewsets
 from .serializers import DriverDetailSerializer
 from .models import Driver
 
 
-class DriverCreateView(generics.CreateAPIView):
-    serializer_class = DriverDetailSerializer
-
-
-class DriverListView(generics.ListAPIView):
+class DriverCreateView(viewsets.ModelViewSet):
     serializer_class = DriverDetailSerializer
     queryset = Driver.objects.all()
 
