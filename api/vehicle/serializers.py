@@ -12,4 +12,3 @@ class SetDriverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehicle
         fields = ['driver_id']
-
