@@ -5,6 +5,23 @@ from django.core.validators import RegexValidator
 
 
 class Vehicle(models.Model):
+    """
+                This class represents a Vehicle. \n
+                Attributes:
+                -----------
+                param driver_id: The driver in a vehicle
+                type driver_id: null or int:driver.id
+                param make: Describes the country or the company that made  the vehicle
+                type make: str max_length=128
+                param model: Describes a model or the vehicle
+                type model: str max_length=128
+                param plate_number: A plate number of the vehicle. AA 1234 OO
+                type plate_number: str max_length=10 validated
+                param created_at: Describes the date when the vehicle was created. Can't be changed.
+                type created_at: int (timestamp)
+                param updated_at: Describes the date when the vehicle was modified
+                type updated_at: int (timestamp)
+            """
     driver_id = models.ForeignKey(Driver,
                                   models.SET_NULL,
                                   blank=True,
@@ -28,4 +45,7 @@ class Vehicle(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f'{self.make} ' \
+               f'{self.model} {self.plate_number} {self.driver_id}'
 

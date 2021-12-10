@@ -1,4 +1,4 @@
-from rest_framework import generics, viewsets, status
+from rest_framework import generics, status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -19,7 +19,6 @@ def drivers_list(request):
     filter by date GET /?created_at__gte=10-11-2021 or
                     /?created_at__gte=10-11-2021
     """
-
     if request.method == 'GET':
         drivers = Driver.objects.all()
 
