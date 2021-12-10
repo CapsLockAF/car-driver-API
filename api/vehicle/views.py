@@ -32,7 +32,7 @@ def vehicles_list(request):
         # create a vehicle if the plate_number does not exist in database
         try:
             pl_number = request.data.get('plate_number')
-            Vehicle.objects.get(plate_number=pl_number)
+            exist_numbers = Vehicle.objects.filter(plate_number=pl_number)
         except Vehicle.MultipleObjectsReturned:
             return Response({"detail": "The plate_number already exists."},
                             status=status.HTTP_400_BAD_REQUEST)
