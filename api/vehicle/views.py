@@ -18,25 +18,18 @@ def vehicles_list(request):
     Filter vehicles by driver:
         /?with_drivers=yes or /?with_drivers=no
     """
-
+    # filter vehicles by vehicle with driver
     if request.method == 'GET':
-        vehicles = Vehicle.objects.all()
-        if request.GET and request.GET['with_drivers'] == 'yes':
-            vehicles = Vehicle.objects.exclude(driver_id__isnull=True)
-        if request.GET and request.GET['with_drivers'] == 'no':
-            vehicles = Vehicle.objects.exclude(driver_id__isnull=False)
+        if request.GET.get('with_drivers'):
+            flag = request.GET.get('with_drivers') == 'yes'
+            vehicles = Vehicle.objects.exclude(driver_id__isnull=flag)
+        else:
+            vehicles = Vehicle.objects.all()
         serializer = VehicleDetailSerializer(vehicles, many=True)
         return Response(serializer.data)
 
     elif request.method == 'POST':
-        # create a vehicle if the plate_number does not exist in database
-        try:
-            pl_number = request.data.get('plate_number')
-            exist_numbers = Vehicle.objects.filter(plate_number=pl_number)
-        except Vehicle.MultipleObjectsReturned:
-            return Response({"detail": "The plate_number already exists."},
-                            status=status.HTTP_400_BAD_REQUEST)
-
+        # create a vehicle
         serializer = VehicleDetailSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -62,14 +55,14 @@ class SetDriverView(viewsets.ModelViewSet):
         try:
             vehicle = Vehicle.objects.get(pk=pk)
         except Vehicle.DoesNotExist:
-            return Response({"detail": "The vehicle does not exist. Wrong ID"},
+            return Response({"id": {"detail": "The vehicle does not exist. Wrong ID"} },
                             status=status.HTTP_400_BAD_REQUEST)
 
         serializer = SetDriverSerializer(vehicle, data=request.data)
-        serializer_class = VehicleDetailSerializer(vehicle)
+        serializer_vehicles = VehicleDetailSerializer(vehicle)
 
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer_class.data)
+            return Response(serializer_vehicles.data)
         return Response(serializer.errors,
                         status=status.HTTP_400_BAD_REQUEST)

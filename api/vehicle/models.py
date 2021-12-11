@@ -39,7 +39,8 @@ class Vehicle(models.Model):
                                     help_text="Please use the following "
                                               "format: <em>AA 1234 OO</em>"
                                               ".",
-                                    validators=[plate_num_validator]
+                                    validators=[plate_num_validator],
+                                    unique=True
                                     )
 
     created_at = models.DateTimeField(auto_now_add=True, editable=False)

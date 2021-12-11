@@ -1,3 +1,4 @@
+from django.core.validators import RegexValidator
 from django.db import models
 
 
@@ -15,8 +16,18 @@ class Driver(models.Model):
             param updated_at: Describes the date when the driver was modified
             type updated_at: int (timestamp)
         """
-    first_name = models.CharField(blank=True, max_length=128)
-    last_name = models.CharField(blank=True, max_length=128)
+    first_name = models.CharField(blank=True, max_length=128, validators=[
+        RegexValidator(
+            regex=r'^[a-zA-Z]*$',
+            message='First name must be Alphanumeric'
+        )
+    ])
+    last_name = models.CharField(blank=True, max_length=128, validators=[
+        RegexValidator(
+            regex=r'^[a-zA-Z]*$',
+            message='Last name must be Alphanumeric',
+        )
+    ])
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True)
 

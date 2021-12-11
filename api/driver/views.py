@@ -16,27 +16,27 @@ def drivers_list(request):
             'first_name': 'str',
             'last_name': 'str'
             }
-    filter by date GET /?created_at__gte=10-11-2021 or
-                    /?created_at__gte=10-11-2021
+    filter by date GET /?created_at__gte=10-12-2021 or
+                    /?created_at__lte=10-12-2021
     """
     if request.method == 'GET':
-        drivers = Driver.objects.all()
-
-        if request.GET and request.GET.get('created_at__gte'):
+        if request.GET.get('created_at__gte'):
             drivers = Driver.objects.filter(
                 created_at__gte=datetime.strptime(
                     request.GET['created_at__gte'],
                     '%d-%m-%Y'))
-
-        elif request.GET and request.GET.get('created_at__lte'):
+        elif request.GET.get('created_at__lte'):
             drivers = Driver.objects.filter(
                 created_at__lte=datetime.strptime(
                     request.GET['created_at__lte'],
                     '%d-%m-%Y'))
+        else:
+            drivers = Driver.objects.all()
 
         serializer = DriverDetailSerializer(drivers, many=True)
         return Response(serializer.data)
 
+    # create a driver object
     elif request.method == 'POST':
         serializer = DriverDetailSerializer(data=request.data)
         if serializer.is_valid():
@@ -49,4 +49,6 @@ class DriverDetailView(generics.RetrieveUpdateDestroyAPIView):
     """Provides get, put, patch and delete method handlers"""
     serializer_class = DriverDetailSerializer
     queryset = Driver.objects.all()
+
+
 

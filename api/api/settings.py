@@ -126,13 +126,18 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'rest_framework.renderers.JSONRenderer',
+    # ],
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'api.util.PrettyJsonRenderer'
+    # ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
 
     ],
     'DATETIME_FORMAT': '%d/%m/%Y %H:%M:%S',
-    'DATE_FORMAT': '%d/%m/%Y',
-
+    'DATE_FORMAT': '%d/%m/%Y'
 }
 
 
