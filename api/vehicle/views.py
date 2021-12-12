@@ -20,8 +20,8 @@ def vehicles_list(request):
     """
     # filter vehicles by vehicle with driver
     if request.method == 'GET':
-        if request.GET.get('with_drivers'):
-            flag = request.GET.get('with_drivers') == 'yes'
+        if request.query_params.get('with_drivers'):
+            flag = request.query_params.get('with_drivers') == 'yes'
             vehicles = Vehicle.objects.exclude(driver_id__isnull=flag)
         else:
             vehicles = Vehicle.objects.all()

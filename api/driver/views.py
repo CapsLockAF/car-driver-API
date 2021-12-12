@@ -20,19 +20,18 @@ def drivers_list(request):
                     /?created_at__lte=10-12-2021
     """
     if request.method == 'GET':
-        if request.GET.get('created_at__gte'):
+        if request.query_params.get('created_at__gte'):
             drivers = Driver.objects.filter(
                 created_at__gte=datetime.strptime(
                     request.GET['created_at__gte'],
                     '%d-%m-%Y'))
-        elif request.GET.get('created_at__lte'):
+        elif request.query_params.get('created_at__lte'):
             drivers = Driver.objects.filter(
                 created_at__lte=datetime.strptime(
                     request.GET['created_at__lte'],
                     '%d-%m-%Y'))
         else:
             drivers = Driver.objects.all()
-
         serializer = DriverDetailSerializer(drivers, many=True)
         return Response(serializer.data)
 
