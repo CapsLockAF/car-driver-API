@@ -13,8 +13,8 @@ def drivers_list(request):
     List of drivers, a filter of car drivers by created date,
      or create a new driver.
      POST {
-            'first_name': 'str',
-            'last_name': 'str'
+            "first_name": "str",
+            "last_name": "str"
             }
     filter by date GET /?created_at__gte=10-12-2021 or
                     /?created_at__lte=10-12-2021
