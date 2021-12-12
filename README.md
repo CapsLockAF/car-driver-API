@@ -1,21 +1,83 @@
-# car-driver-API
-Driver:
-+ GET /drivers/driver/ - вивід списку водіїв
-+ GET /drivers/driver/?created_at__gte=10-11-2021 - вивід списку водіїв, які створені після 10-11-2021
-+ GET /drivers/driver/?created_at__lte=16-11-2021 - вивід списку водіїв, котрі створені до 16-11-2021
-
-+ GET /drivers/driver/<driver_id>/ - отримання інформації по певному водію
-+ POST /drivers/driver/ - створення нового водія
-+ UPDATE /drivers/driver/<driver_id>/ - редагування водія
-+ DELETE /drivers/driver/<driver_id>/ - видалення водія
-
-Vehicle:
-+ GET /vehicles/vehicle/ - вивід списку машин
-+ GET /vehicles/vehicle/?with_drivers=yes - вивід списку машин з водіями
-+ GET /vehicles/vehicle/?with_drivers=no - вивід списку машин без водіїв
-
-+ GET /vehicles/vehicle/<vehicle_id> - отримання інформації по певній машині
-+ POST /vehicles/vehicle/ - створення нової машини
-+ UPDATE /vehicles/vehicle/<vehicle_id>/ - редагування машини
-+ POST /vehicles/set_driver/<vehicle_id>/ - садимо водія в машину / висаджуємо водія з машини  
-+ DELETE /vehicles/vehicle/<vehicle_id>/ - видалення машини
+# NOTE: This is a test task
+## Overview
+VehicleDriverAPI is the simple API was written in Python and
+[Django REST framework](https://www.django-rest-framework.org/).
+It is an example of implementation of REST API for a fleet of vehicles 
+with drivers.
+## Setup
+Visit [SETUP.md](./SETUP.md) for installation and getting started
+## JSON Schemas
+The driver:
+```
+{
+    "type": "object",
+    "title": "The Driver schema",
+    "properties": {
+        "id": {
+            "type": "integer",
+            "examples": 3
+        },
+        "first_name": {
+            "type": "string",
+            "examples": "Jhon",
+            "pattern": "^[a-zA-Z]*$"
+        },
+        "last_name": {
+            "type": "string",
+            "examples": "Doe",
+            "pattern": "^[a-zA-Z]*$"
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "examples": "09/12/2021 15:06:15"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time",    
+            "examples": "10/12/2021 18:00:25"
+        },
+    },
+}
+```
+The vehicle:
+```
+{
+    "type": "object",
+    "title": "The Vehicle schema",
+    "properties": {
+        "id": {
+            "type": "integer",
+            "examples": 3
+        },
+        "make": {
+            "type": "string",
+            "examples": "Germany, VAG"
+        },
+        "model": {
+            "type": "string",
+            "examples": "Golf 5"
+        },
+        "plate_number": {
+            "type": "string",
+            "examples": "AA 5555 BB",
+            "pattern": "\b[A-Z]{2}\s[0-9]{4}\s[A-Z]{2}\b"
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "examples": "09/12/2021 15:06:15"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time",    
+            "examples": "10/12/2021 18:00:25"
+        },
+        "driver_id": {
+            "default": "null",
+            "type": "integer",    
+            "examples": [3, null]
+        }
+    },
+}
+```
