@@ -67,6 +67,11 @@ Also, you can use admin panel `admin/` with credentials:
 name: admin
 password: 123456789
 ```
+##Tests
+Note: API tests in 'progress' dev status...
+```
+coverage run  manage.py test driver
+```
 ##Debug mode
 Switch debug mode on production mode in api/settings.py
 ```python
