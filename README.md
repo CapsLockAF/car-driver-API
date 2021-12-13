@@ -6,6 +6,9 @@ It is an example of implementation of REST API for a fleet of vehicles
 with drivers.
 ## Setup
 Visit [SETUP.md](./SETUP.md) for installation and getting started
+## [Usage](./SETUP.md#Available Routes)
+[Here](./SETUP.md#Available Routes) you can find out usage of requests.
+You can use [Postman](https://www.postman.com/) for using APIs or debug mode(default).
 ## JSON Schemas
 The driver:
 ```
@@ -76,7 +79,8 @@ The vehicle:
         "driver_id": {
             "default": "null",
             "type": "integer",    
-            "examples": [3, null]
+            "examples": [3, null],
+            "description": "FK to Driver, OneToOne relationship"
         }
     },
 }

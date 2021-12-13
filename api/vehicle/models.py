@@ -22,11 +22,11 @@ class Vehicle(models.Model):
                 param updated_at: Describes the date when the vehicle was modified
                 type updated_at: int (timestamp)
             """
-    driver_id = models.ForeignKey(Driver,
-                                  models.SET_NULL,
-                                  blank=True,
-                                  null=True
-                                  )
+    driver_id = models.OneToOneField(Driver,
+                                     models.SET_NULL,
+                                     blank=True,
+                                     null=True
+                                     )
     make = models.CharField(max_length=128)
     model = models.CharField(max_length=128)
 
